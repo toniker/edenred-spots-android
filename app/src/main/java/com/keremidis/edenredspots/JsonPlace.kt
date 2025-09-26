@@ -1,15 +1,15 @@
 package com.keremidis.edenredspots
 
-import com.google.android.gms.maps.model.LatLng
+import android.annotation.SuppressLint
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-// Top-level object in the JSON array
+@SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class JsonPlace(
     @SerialName("Id") val id: String,
     @SerialName("Name") val name: String,
-    @SerialName("Phone") val phone: String? = null, // Mark as nullable if it can be missing
+    @SerialName("Phone") val phone: String? = null,
     @SerialName("ZipCode") val zipCode: String? = null,
     @SerialName("Address") val address: String,
     @SerialName("Address2") val address2: String? = null,
@@ -25,6 +25,7 @@ data class JsonPlace(
     val brandName: String
 )
 
+@SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class JsonField(
     @SerialName("Champ_SQL") val champSql: String,
@@ -35,6 +36,7 @@ data class JsonField(
     @SerialName("Visible") val visible: Boolean
 )
 
+@SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class JsonAdditionalAttributes(
     @SerialName("Container") val container: Map<String, String>? = emptyMap() // Assuming it's a map or can be empty
