@@ -3,8 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.0" // Use the latest compatible version
-    kotlin("kapt")
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
+    id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
 }
 
@@ -54,20 +54,19 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
     implementation(libs.play.services.maps)
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0") // Use the latest version
-    implementation("com.google.dagger:hilt-android:2.51.1")
+    implementation(libs.kotlinx.serialization.json) // Use the latest version
+    implementation(libs.hilt.android)
     implementation(libs.play.services.location)
-    implementation("androidx.room:room-runtime:2.6.1") // Or the latest version
-    kapt("androidx.room:room-compiler:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    implementation(libs.androidx.room.runtime) // Or the latest version
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx.v261)
+    ksp(libs.hilt.android.compiler)
     // Google Maps Compose library
-    val mapsComposeVersion = "4.4.1"
-    implementation("com.google.maps.android:maps-compose:$mapsComposeVersion")
+    implementation(libs.maps.compose)
     // Google Maps Compose utility library
-    implementation("com.google.maps.android:maps-compose-utils:$mapsComposeVersion")
+    implementation(libs.maps.compose.utils)
     // Google Maps Compose widgets library
-    implementation("com.google.maps.android:maps-compose-widgets:$mapsComposeVersion")
+    implementation(libs.maps.compose.widgets)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -85,9 +84,4 @@ secrets {
     // A properties file containing default secret values. This file can be
     // checked in version control.
     defaultPropertiesFileName = "local.defaults.properties"
-}
-
-// Allow references to generated code
-kapt {
-    correctErrorTypes = true
 }
