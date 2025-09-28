@@ -56,6 +56,10 @@ dependencies {
     implementation(libs.play.services.maps)
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0") // Use the latest version
     implementation("com.google.dagger:hilt-android:2.51.1")
+    implementation(libs.play.services.location)
+    implementation("androidx.room:room-runtime:2.6.1") // Or the latest version
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
     // Google Maps Compose library
     val mapsComposeVersion = "4.4.1"
