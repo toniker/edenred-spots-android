@@ -8,6 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -44,6 +45,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
@@ -91,6 +93,7 @@ private fun MapScreen(viewModel: MapViewModel) {
     val context = LocalContext.current
     var userLocation by remember { mutableStateOf<LatLng?>(null) }
     val fusedLocationClient = remember { LocationServices.getFusedLocationProviderClient(context) }
+    val isDarkTheme = isSystemInDarkTheme()
 
     val hasLocationPermission = remember {
         ContextCompat.checkSelfPermission(
@@ -139,7 +142,12 @@ private fun MapScreen(viewModel: MapViewModel) {
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
             cameraPositionState = cameraPositionState,
-            properties = MapProperties(isMyLocationEnabled = hasLocationPermission),
+            properties = MapProperties(
+                isMyLocationEnabled = hasLocationPermission,
+                mapStyleOptions = if (isDarkTheme) {
+                    MapStyleOptions.loadRawResourceStyle(context, R.raw.map_style_dark)
+                } else null
+            ),
             uiSettings = MapUiSettings(myLocationButtonEnabled = hasLocationPermission),
             onMapLoaded = {
                 // Initial load of visible places
