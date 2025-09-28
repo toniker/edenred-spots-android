@@ -111,7 +111,7 @@ private fun MapScreen(viewModel: MapViewModel) {
                 .addOnSuccessListener { location ->
                     location?.let {
                         userLocation = LatLng(it.latitude, it.longitude)
-                        cameraPositionState.move(CameraUpdateFactory.newLatLngZoom(userLocation!!, 12f))
+                        cameraPositionState.move(CameraUpdateFactory.newLatLngZoom(userLocation!!,  16f))
                     }
                 }
         }
@@ -139,7 +139,7 @@ private fun MapScreen(viewModel: MapViewModel) {
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
             cameraPositionState = cameraPositionState,
-            properties = MapProperties(isMyLocationEnabled = hasLocationPermission, ),
+            properties = MapProperties(isMyLocationEnabled = hasLocationPermission),
             uiSettings = MapUiSettings(myLocationButtonEnabled = hasLocationPermission),
             onMapLoaded = {
                 // Initial load of visible places
